@@ -1,0 +1,588 @@
+#+TITLE: python 入门讲义 第一讲
+#+PROPERTY:  results output
+
+* 学习资源推荐
+- [[https://item.jd.com/10957017.html][Head First Python]]
+- [[http://www.liaoxuefeng.com/][廖雪峰的博客]]
+- [[http://www.runoob.com/python/python-tutorial.html][Python 基础教程 | 菜鸟教程]]
+- [[http://ideone.com/][IDEONE]] :: 可以用来运行 Python 代码
+
+* 安装 python
+建议使用 python3
+** GNU/Linux
+你自己看着办吧_(:зゝ∠)_
+** OS X、macOS
+用[[http://brew.sh/][ brew]] 来安装。
+** windows
+1. 打开浏览器
+2. 打开你最喜欢的搜索引擎
+3. 搜索 python
+4. 点开看起来最像官网的链接
+5. 点开类似“download”的超链接
+6. 找到“download python 3.X.X”
+7. 下载 exe 文件
+8. 双击打开 exe 文件
+9. 狂点下一步
+10. ╮(╯▽╰)╭
+11. 安装的时候记得选上 ~Add Python to PATH~ ！！！
+* 语法简介
+** 注释
+#+begin_src python
+  #这是一行注释
+  """
+  这里有好几行注释
+  这里有好几行注释
+  这里有好几行注释
+  """
+#+end_src
+
+** 变量
+
+#+begin_src python
+  a = 1
+  b = 3.14
+
+  #输出
+  print(a, b)
+#+end_src
+
+#+BEGIN_EXAMPLE
+1 3.14
+#+END_EXAMPLE
+
+** 例程 [[../src/c1-1.py][c1-1.py]]
+#+begin_src python :tangle ../src/c1-1.py
+  print("Hello world")
+#+end_src
+
+python 是解释执行的，与编译执行的 c 语言不同。
+* 内嵌帮助
+** help 函数
+#+begin_src python
+  help()
+#+end_src
+
+#+begin_example
+
+Welcome to Python 3.5's help utility!
+
+If this is your first time using Python, you should definitely check out
+the tutorial on the Internet at http://docs.python.org/3.5/tutorial/.
+
+Enter the name of any module, keyword, or topic to get help on writing
+Python programs and using Python modules.  To quit this help utility and
+return to the interpreter, just type "quit".
+
+以下略
+#+end_example
+
+#+begin_src python
+  a = 1
+  help(a)
+#+end_src
+
+#+begin_example
+Help on int object:
+
+class int(object)
+ |  int(x=0) -> integer
+ |  int(x, base=10) -> integer
+ 以下略
+#+end_example
+
+** type 函数
+#+begin_src python
+  a = 1
+  print(type(a))
+#+end_src
+
+#+BEGIN_EXAMPLE
+<class 'int'>
+#+END_EXAMPLE
+
+* 输入输出
+** 参数
+#+begin_src python
+  help(input)
+#+end_src
+
+#+begin_example
+Help on built-in function input in module builtins:
+
+input(prompt=None, /)
+    Read a string from standard input.  The trailing newline is stripped.
+
+    The prompt string, if given, is printed to standard output without a
+    trailing newline before reading input.
+
+    If the user hits EOF (*nix: Ctrl-D, Windows: Ctrl-Z+Return), raise EOFError.
+    On *nix systems, readline is used if available.
+
+#+end_example
+
+#+begin_src python
+  help(print)
+#+end_src
+
+#+begin_example
+Help on built-in function print in module builtins:
+
+print(...)
+    print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file:  a file-like object (stream); defaults to the current sys.stdout.
+    sep:   string inserted between values, default a space.
+    end:   string appended after the last value, default a newline.
+    flush: whether to forcibly flush the stream.
+
+#+end_example
+** 例程 [[../src/c1-2.py][c1-2.py]]
+#+begin_src python :tangle ../src/c1-2.py
+  name = input("请输入你的名字：")
+  print("你好，" + name + "!")
+  input("按回车继续")
+#+end_src
+
+其实还有别的暂停方法，以后再说。
+* 类型简介
+** 数值类型
+#+begin_src python
+  a = 1
+  a = 1.5
+  # 平方
+  print(2**128)
+#+end_src
+
+#+BEGIN_EXAMPLE
+340282366920938463463374607431768211456
+#+END_EXAMPLE
+
+运算符与 c 语言基本相同，但是没有自增和自减。
+
+** 字符串
+#+begin_src python
+  s = '一个字符串'
+  s = "另一个字符串"
+  s = """多行字符串
+  hhhhhhhhhhhhhhhh"""
+  s = '''llllllllllllllllllll
+  lllllllllllllll'''
+
+  "字符串中带着'引号'"
+
+  'say "Hello"'
+  """
+  'aaa' say "hello"
+  """
+
+  "也可以使用转义符号\"hhhhhhhhhhhhhhhh\""
+#+end_src
+
+** 字符串与数值的转换
+#+begin_src python
+  s = '123'
+  n = int(s)
+  print(n + 1)
+
+  print(int('fff', 16) + 1)
+
+  print(str(15))
+  print(bin(15))
+  print(oct(15))
+  print(hex(15))
+#+end_src
+
+#+BEGIN_EXAMPLE
+124
+4096
+15
+0b1111
+0o17
+0xf
+#+END_EXAMPLE
+
+** 例程 [[../src/c1-3.py][c1-3.py]]
+#+begin_src python :tangle ../src/c1-3.py
+  age = input('请输入您的年龄：')
+  print("明年您的年龄是：%d" % (int(age) + 1))
+  input("Press Enter to Continue")
+#+end_src
+** 字符串输出
+#+begin_src python
+  a = 3
+  b = 4
+  print('%d + %d = %d' % (a, b, a + b))
+#+end_src
+
+#+BEGIN_EXAMPLE
+3 + 4 = 7
+#+END_EXAMPLE
+** 动态类型
+#+begin_src python
+  a = "Hello"
+  print(a)
+  a = 3.14
+  print(a)
+#+end_src
+
+#+BEGIN_EXAMPLE
+Hello
+3.14
+#+END_EXAMPLE
+
+自行查阅 python 的垃圾回收与引用计数
+
+* Python 的控制流与函数
+** 选择结构
+python 没有花括号，通过缩进来区别程序结构
+#+begin_src python
+  man = True
+  woman = False
+  if man:
+      print('man')
+  elif woman:
+      print('woman')
+  else:
+      pass
+
+  if not 1 == 1:
+      print("厉害了哥")
+#+end_src
+
+#+BEGIN_EXAMPLE
+man
+#+END_EXAMPLE
+
+使用 not or 和 and，对应于 c 语言的 ~! || &&~ 。
+
+** 循环结构
+#+begin_src python
+  i = 0
+  while i < 5:
+      print(i)
+      i = i + 1
+#+end_src
+
+#+BEGIN_EXAMPLE
+0
+1
+2
+3
+4
+#+END_EXAMPLE
+
+或者使用 for 语句来迭代
+
+#+begin_src python
+  for i in range(5):
+      print(i)
+#+end_src
+
+#+BEGIN_EXAMPLE
+0
+1
+2
+3
+4
+#+END_EXAMPLE
+
+range 函数隆重登场。
+
+各个语句与 c 语言类似，包括 break 和 continue。
+** 函数
+#+begin_src python :exports both
+  def add(a, b, c=0):  # 可以指定形参的默认值
+      return (a + b + c)
+
+
+  print(add(1, 2))
+  print(add(1, 2, 3))
+#+end_src
+
+#+RESULTS:
+: 3
+: 6
+
+** 可迭代对象
+#+begin_src python :session fab
+  def fab():
+      a = 0
+      b = 1
+      #
+      while True:
+          c = a + b
+          yield (c)
+          #
+          a = b
+          b = c
+
+
+  num = fab()
+  for i in range(5):
+      print(next(num))
+#+end_src
+
+#+BEGIN_EXAMPLE
+1
+2
+3
+5
+8
+#+END_EXAMPLE
+
+实际上 range 返回的也是一个可迭代对象，而 for 语句就是将可迭代对象绑定到了变量上。
+
+#+begin_src python :session fab
+  for i in fab():
+      if i > 10:
+          break
+      #
+      print(i)
+#+end_src
+
+#+BEGIN_EXAMPLE
+1
+2
+3
+5
+8
+#+END_EXAMPLE
+
+#+begin_src python :session ret :preamble "# -*- coding: utf-8 -*-"
+  def ret():
+      yield (1)
+      yield (2)
+      yield (3)
+
+
+  a = ret()
+  for i in range(4):
+      print(next(a))
+#+end_src
+
+#+BEGIN_EXAMPLE
+1
+2
+3
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+StopIteration
+#+END_EXAMPLE
+
+当函数终止时抛出 stopIteration
+
+** 异常处理
+#+begin_src python :session ret :preamble "# -*- coding: utf-8 -*-"
+  try:
+      # for 语句在迭代完成后会自动停下
+      for num in ret():
+          print(num)
+      #
+      num=ret()
+      for i in range(4):
+          print(next(num))
+      #
+      print("这一句永远不会运行")
+  except StopIteration as err:
+      # as 部分可以省略，忽略异常类型（即只有 except:）将捕获任何异常
+      print(err)
+  # finally 部分可以省略
+  finally:
+      print("执行完毕")
+#+end_src
+
+#+begin_example
+1
+2
+3
+1
+2
+3
+
+执行完毕
+#+end_example
+* 列表
+** 产生一个列表
+#+begin_src python :session list
+  a = list()
+  b = [5, 6, 50, 8]
+  c = list(b)
+  # 列表可以嵌套任意类型的对象
+  d = [a, b, c, 666]
+
+  print(d)
+#+end_src
+
+#+BEGIN_EXAMPLE
+[[], [5, 6, 7, 8], [5, 6, 7, 8], 666]
+#+END_EXAMPLE
+
+** 使用 ~.~ 来操作对象
+#+begin_src python :session list
+  # 插入到末尾
+  a.append(233)
+  # 把列表中的元素插入到末尾
+  a.extend([7, 5, 4, 3])
+  # 任何元素都可以转换成字符串，可以用 %s 来指代
+  # 只有一个元素的时候可以不加括号
+  print("a: %s" % a)
+
+  # 把某个元素插入到指定位置
+  b.insert(2, '"(ºДº*)')
+  # 删除某个元素，省略参数时删除第一个
+  b.pop(1)
+  # 逆序排列
+  b.reverse()
+  # 排序
+  a.sort()
+
+  # 列表中的元素是引用哦，但是 c 是复制出来的，不会随 b 改变
+  print(d)
+#+end_src
+
+#+BEGIN_EXAMPLE
+a: [233, 7, 5, 4, 3]
+[[3, 4, 5, 7, 233], [8, 50, '"( Д *)', 5], [5, 6, 50, 8], 666]
+#+END_EXAMPLE
+
+#+begin_src python :exports both
+  a = ['c', "a", 'b', 'c', 'd']
+  # 返回某元素的索引
+  print(a.index('c'))
+  # 移除第一个指定的元素
+  a.remove('c')
+  print(a)
+#+end_src
+
+#+RESULTS:
+: 0
+: ['a', 'b', 'c', 'd']
+
+** 某些特殊语句
+#+begin_src python :exports both
+  a = [1, 2, 3, 4]
+  print(a[3])
+  # 列表中 [1,2) 区间里的元素组成的新列表
+  print(a[1:2])
+  """
+  如果留空，左边界默认为 0，右边界默认为长度
+  可以使用负数来反向索引
+  使用 o[:] 这样的形式可以拷贝整个列表
+      ○ 可以使用第三个参数表示步长，如：L[i:j:k]。默认为 1
+      ○ 如果是负数，则表示从右往左扫描，此时前两个参数的含义表示从右往左
+      时的“终止点：起始点”
+  """
+  s = 'abcdefg'  # 字符串也是一个序列
+  print(s[5:1:-1])
+
+  # 负数表示从后往前索引
+  print(s[-1])
+
+  # 用加号来连接两个列表
+  print(a + a[:2])
+
+  # 给列表赋值可以改变它
+  lst = [1, 2, 3]
+  lst[:1] = [6, 6, 6]
+  print(lst)
+#+end_src
+
+#+RESULTS:
+: 4
+: [2]
+: fedc
+: g
+: [1, 2, 3, 4, 1, 2]
+: [6, 6, 6, 2, 3]
+
+del 可以删除某个元素
+#+begin_src python :exports both
+  a = [1, 2, 3, 4]
+  del a[0]
+  print(a)
+  a = [1, 2, 3, 4]
+  del a[1:]
+  # a[1:] = [] 也有同样的效果
+  print(a)
+#+end_src
+
+#+RESULTS:
+: [2, 3, 4]
+: [1]
+
+in 可以测试某个元素是否在列表中（其实还有很多类型可以这样检测）
+#+begin_src python :exports both
+  lst = ['a', 'b', 'c']
+  print('a' in lst)
+  print('d' not in lst)
+#+end_src
+
+#+RESULTS:
+: True
+: True
+** 字符串的方法
+#+begin_src python :exports both
+  s = "a bc d e"
+  # 将字符串从空格处分开，返回一个列表
+  print(s.split())
+  # 可以指定分隔符，第二个参数是最多分割多少次
+  print(s.split('d'))
+  # 参数传递的另一种方式：指定形参的名字
+  print(s.split(maxsplit=1))
+#+end_src
+
+#+RESULTS:
+: ['a', 'bc', 'd', 'e']
+: ['a bc ', ' e']
+: ['a', 'bc d e']
+
+#+begin_src python :exports both
+  s = "abcde"
+  # 返回某子串第一次出现的位置
+  print(s.find('b'))
+  # 找不到时返回 -1
+  print(s.find('NO!!!'))
+#+end_src
+
+#+RESULTS:
+: 1
+: -1
+
+#+begin_src python :exports both
+  s = 'very longgggggggggggggggggggg'
+  # 内置函数 len 可以返回长度，可以用在多种类型上，包括列表
+  print(len(s))
+#+end_src
+
+#+RESULTS:
+: 29
+
+* 最后一个例程：一个简单的解释器
+例程 [[../src/c1-4.py][c1-4.py]]
+#+begin_src python :tangle ../src/c1-4.py
+  def interp(s):
+      lst = s.split(' ', 1)
+      if lst[0] == "print":
+          if (len(lst) >= 2):
+              print(lst[1])
+          else:
+              print("")
+      elif lst[0] == "exit":
+          return False
+      else:
+          print("错误：未识别的语法")
+      return True
+
+
+  def main():
+      print("SBL: 一个没啥卵用的解释器")
+      #
+      s = input(">>> ")
+      while interp(s):
+          s = input(">>> ")
+
+
+  main()
+#+end_src

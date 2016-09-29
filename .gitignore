@@ -1,8 +1,4 @@
-# Compiled
-*.elc
-
-# Packaging
-.cask
+.#*
 
 # =========================
 # Operating System Files

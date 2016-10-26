@@ -8,7 +8,7 @@ def interp(s):
     elif lst[0] == "exit":
         return False
     else:
-        print("错误：未识别的语法")
+        print("错误：无法识别关键词 %s" % lst[0])
     return True
 
 
